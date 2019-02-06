@@ -7,10 +7,11 @@
 #define __SCREENOUT_H__
 
 #include "cusInfo.h"
-
+#include "dvdInfo.h"
 
 void ShowMenu(void);
 void ShowCustomerInfo(cusInfo * pCus);
+void ShowDVDInfo(dvdInfo*pDVD);
 
 #endif
 
