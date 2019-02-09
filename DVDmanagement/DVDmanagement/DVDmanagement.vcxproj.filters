@@ -33,6 +33,9 @@
     <ClCompile Include="dvdInfoAccess.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rentInfoAccess.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -57,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dvdManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rentInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rentInFoAccess.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

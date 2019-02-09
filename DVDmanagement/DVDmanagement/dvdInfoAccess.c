@@ -28,8 +28,10 @@ int AddDVDInfo(char * ISBN, char * title, int genre)
 	strcpy(pDVD->ISBN, ISBN);
 	strcpy(pDVD->title, title);
 	pDVD->genre = genre;
+	pDVD->rentState = RETURNED;  
 
 	dvdList[numOfDVD++] = pDVD;
+	
 
 	return numOfDVD;
 }
@@ -63,6 +65,30 @@ int IsRegistISBN(char*ISBN)
 		return 1;
 
 	return 0;
+}
+
+// 기	능 : 대여 가능 상태로 변경
+// 반	환 : 성공 1, 실패 0
+int SetDVDReturned(char*ISBN)
+{
+	dvdInfo * pDVD = GetDVDPtrByISBN(ISBN);
+	
+	if (pDVD == 0)
+		return 0;
+
+	pDVD->rentState = RETURNED;
+	return 1;
+}
+
+// 기	능 : 현재 대여 상태 반환
+// 반	환 : RETURNED, RENTED, 존재하지 않는 ISBN의 경우 -1 반환
+int GetDVDRentState(char*ISBN)
+{
+	dvdInfo * pDVD = GetDVDPtrByISBN(ISBN);
+	if (pDVD == 0)
+		return -1;
+
+	return pDVD->rentState;
 }
 
 /* end of file */

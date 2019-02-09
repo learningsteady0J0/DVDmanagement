@@ -9,6 +9,7 @@
 
 void RegistCustomer(void);
 void SearchCusInfo(void);
+void RentedDVDShowAll(void);
 
 #endif
 /* end of file */

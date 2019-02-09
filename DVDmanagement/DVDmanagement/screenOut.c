@@ -6,7 +6,7 @@
 #include "common.h"
 #include "cusInfo.h"
 #include "dvdInfo.h"
-
+#include "rentInfo.h"
 #define GENRE_SIZE	10
 
 /* 프로그램 사용을 위한 메뉴 */
@@ -21,7 +21,13 @@ void ShowMenu(void)
 	printf(" 3. 신규DVD등록 \n");
 	printf(" 4. DVD검색 \n");
 	printf("───────────────────────────────── \n");
-	printf(" 5. 종료 \n");
+	printf(" 5. DVD 대여 \n");
+	printf(" 6. DVD 반납 \n");
+	printf("───────────────────────────────── \n");
+	printf(" 7. DVD 대여고객 전체 조회 \n");
+	printf(" 8. 고객 대여 DVD 전체 조회 \n");
+	printf("───────────────────────────────── \n");
+	printf(" 9. 종료 \n");
 	printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n");
 	printf("선택>> ");
 }
@@ -53,6 +59,15 @@ void ShowDVDInfo(dvdInfo * pDVD)
 	printf("┃ ● ISBN : %s \n", pDVD->ISBN);
 	printf("┃ ● Title : %s \n", pDVD->title);
 	printf("┃ ● GENRE : %s \n", genre);
+	printf("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n\n");
+}
+
+/* DVDRENT의 기본 정보 출력 */
+void ShowDVDRENTInfo(dvdRentInfo rentList)
+{
+	printf("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n");
+	printf("┃ ● ISBN : %s \n", rentList.ISBN);
+	printf("┃ ● 대여일 : %d \n", rentList.rentDay);
 	printf("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ \n\n");
 }
 
