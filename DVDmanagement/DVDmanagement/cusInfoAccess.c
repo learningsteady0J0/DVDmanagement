@@ -65,4 +65,48 @@ int IsRegistID(char*ID)
 	return 0;
 }
 
+// 기	능 : 고객 정보 저장
+// 반	환 : void
+void cusInfoSave(void)
+{
+	FILE * fp = fopen("cusInfo.dat","wb");
+	int i;
+
+	if (fp == NULL)
+	{
+		puts("파일 열람실패");
+		return -1;
+	}
+
+	fwrite((int*)&numOfCustomer, sizeof(int), 1, fp);
+	for (i = 0; i < numOfCustomer; i++)
+		fwrite((cusInfo*)cusList[i], sizeof(cusInfo), 1, fp);
+
+
+	fclose(fp);
+}
+
+// 기	능 : 고객 정보 불러오기
+// 반	환 : void
+void cusInfoLoad(void)
+{
+	FILE * fp = fopen("cusInfo.dat", "rb");
+	int i;
+
+	if (fp == NULL)
+	{
+		puts("파일 열람실패");
+		return -1;
+	}
+
+	fread((int*)&numOfCustomer, sizeof(int), 1, fp);
+	for (i = 0; i < numOfCustomer; i++)
+	{
+		cusList[i] = (cusInfo*)malloc(sizeof(cusInfo) * 1);
+		fread((cusInfo*)cusList[i], sizeof(cusInfo), 1, fp);
+
+	}
+	fclose(fp);
+}
+
 /* end of file */

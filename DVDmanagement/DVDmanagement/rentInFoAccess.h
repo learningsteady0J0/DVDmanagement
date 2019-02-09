@@ -10,7 +10,8 @@
 void AddRentList(char * ISBN, char * cusID, int rentDay);
 void PrintOutRentAllCusInfo(char * ISBN);
 void PrintOutCusAllRentInfo(char*ID, unsigned int start, unsigned int end);
-
+void rentInfoSave(void);
+void rentInfoLoad(void);
 #endif
 
 /* end of file */

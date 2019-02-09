@@ -4,16 +4,16 @@
 // Last modified 2019/02/06
 
 #include "common.h"
-#include "cusManager.h"
 #include "screenOut.h"
-#include "dvdManager.h"
+#include "blManager.h"
 
 enum {CUS_REGIST=1, CUS_SEARCH, DVD_REGIST,DVD_SEARCH, DVD_RENTED, DVD_RETURNED, DVD_RENTEDSHOWALL, CUS_DVDRENTEDSHOWALL, QUIT};
+
 
 int main(void)
 {
 	int inputMenu = 0;
-
+	LoadAllData();
 	while (1)
 	{
 		ShowMenu();

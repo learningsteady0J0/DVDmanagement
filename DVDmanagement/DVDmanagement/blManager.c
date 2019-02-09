@@ -1,15 +1,77 @@
-// Name : dvdManager.c
-// Content : DVD 관련 업무 처리 함수들의 정의
+// Name : blManager.c
+// Content : 고객 관련 업무 처리 함수들의 정의
 // Implementation : learningsteady0j0
 // Last modified 2019/02/06
 
 #include "common.h"
+#include "cusInfo.h"
+#include "cusInfoAccess.h"
+#include "screenOut.h"
 #include "dvdInfo.h"
 #include "dvdInfoAccess.h"
-#include "screenOut.h"
-#include "cusInfoAccess.h"
-#include "cusInfo.h"
 #include "rentInFoAccess.h"
+
+
+// 기	능 : 신규 회원 가입
+// 반	환 : void
+void RegistCustomer(void)
+{
+	char ID[ID_LEN];
+	char name[NAME_LEN];
+	char num[PHONE_LEN];
+
+	while (1) {
+		fputs("ID 입력: ", stdout);
+		gets(ID);
+
+		if (IsRegistID(ID) == 0)
+			break;
+
+		puts("가입이 되어있는 ID입니다. 다른 ID를 선택해주세요.");
+	}
+	fputs("이름 입력: ", stdout);
+	gets(name);
+	fputs("전화번호 입력: ", stdout);
+	gets(num);
+
+	if (AddCusInfo(ID, name, num) != 0)
+	{
+		puts("가입이 완료되었습니다.");
+		cusInfoSave();
+	}
+	else
+	{
+		puts("오류발생");
+		getchar();
+		return;
+	}
+	getchar();
+
+}
+
+// 기	능 : ID를 통한 회원 정보 검색
+// 반	환 : void
+void SearchCusInfo(void)
+{
+	char ID[ID_LEN];
+	cusInfo * ptr;
+	fputs("찾는 아이디를 입력해주세요.", stdout);
+	gets(ID);
+	ptr = GetCusPtrByID(ID);
+
+	if (ptr == NULL)
+	{
+		puts("찾으시는 아이디는 존재하지 않습니다.");
+		getchar();
+		return;
+	}
+	else
+	{
+		ShowCustomerInfo(ptr);
+	}
+
+	getchar();
+}
 
 // 기	능 : 신규 DVD 등록
 // 반	환 : void
@@ -42,6 +104,7 @@ void RegistDVD(void)
 	if (AddDVDInfo(ISBN, title, genre) != 0)
 	{
 		puts("등록이 완료되었습니다.");
+		DVDInfoSave();
 	}
 	else
 	{
@@ -90,14 +153,14 @@ void RentDVD(void)
 	fputs("대여 DVD ISBN 입력: ", stdout);
 	gets(ISBN);
 	ptr = GetDVDPtrByISBN(ISBN);
-	
+
 	if (ptr == NULL)
 	{
 		puts("해당 DVD가 존재하지 않습니다.");
 		getchar();
 		return;
 	}
-	
+
 	// 대여 가능한 상태인지 확인
 	rentstete = GetDVDRentState(ISBN);
 	if (rentstete == RENTED)
@@ -126,9 +189,10 @@ void RentDVD(void)
 
 	AddRentList(ISBN, ID, rentDay);
 	ptr->rentState = RENTED;
-	
+
 	puts("대여가 완료되었습니다.");
-	
+	DVDInfoSave();
+
 	getchar();
 }
 
@@ -151,18 +215,19 @@ void ReturnDVD(void)
 		getchar();
 		return;
 	}
-	
+
 	rentStete = GetDVDRentState(ISBN);
 
 	if (rentStete == RENTED)
 	{
 		SetDVDReturned(ISBN);
 		puts("반납이 완료되었습니다.");
+		DVDInfoSave();
 	}
 	else
 		puts("대여되지 않은 DVD 입니다.");
 
-	
+
 
 	getchar();
 }
@@ -216,4 +281,14 @@ void RentedDVDShowAll(void)
 	puts("조회를 완료했습니다.\n");
 	getchar();
 }
-/* end of file */
+
+// 기	능 : 모든 데이터 불러오기
+// 반	환 : void
+void LoadAllData(void)
+{
+	cusInfoLoad();
+	DVDInfoLoad();
+	rentInfoLoad();
+}
+
+/* end fo file */

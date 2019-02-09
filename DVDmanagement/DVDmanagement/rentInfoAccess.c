@@ -71,4 +71,43 @@ void PrintOutCusAllRentInfo(char*ID, unsigned int start, unsigned int end)
 
 }
 
+// 기	능 : 대여 정보 저장
+// 반	환 : void
+void rentInfoSave(void)
+{
+	FILE * fp = fopen("rentInfo.dat", "wb");
+	int i;
+
+	if (fp == NULL)
+	{
+		puts("파일 열람실패");
+		return -1;
+	}
+
+	fwrite((int*)&numOfRentCus, sizeof(int), 1, fp);
+	fwrite((dvdRentInfo*)&rentList[i], sizeof(dvdRentInfo), numOfRentCus, fp);
+
+
+	fclose(fp);
+}
+
+// 기	능 : 반납 정보 불러오기
+// 반	환 : void
+void rentInfoLoad(void)
+{
+	FILE * fp = fopen("rentInfo.dat", "rb");
+	int i;
+
+	if (fp == NULL)
+	{
+		puts("파일 열람실패");
+		return -1;
+	}
+
+	fread((int*)&numOfRentCus, sizeof(int), 1, fp);
+	fread((cusInfo*)&rentList[i], sizeof(cusInfo), numOfRentCus, fp);
+
+
+	fclose(fp);
+}
 /* end of file */

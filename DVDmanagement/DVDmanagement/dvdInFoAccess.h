@@ -13,7 +13,8 @@ dvdInfo * GetDVDPtrByISBN(char * ISBN);
 int IsRegistISBN(char*ISBN);
 int SetDVDReturned(char*ISBN);
 int GetDVDRentState(char*ISBN);
-
+void DVDInfoSave(void);
+void DVDInfoLoad(void);
 #endif
 
 /* end of file */
